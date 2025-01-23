@@ -1,8 +1,6 @@
 class Solution {
     public int[] sortEvenOdd(int[] nums) {
         int n = nums.length;
-
-        // Step 1: Extract values at even and odd indices
         List<Integer> evenList = new ArrayList<>();
         List<Integer> oddList = new ArrayList<>();
         
