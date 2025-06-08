@@ -1,5 +1,6 @@
 class MyLinkedList {
-    private static class Node {
+
+   private static class Node {
         int data;
         Node next;
         Node(int data) {
@@ -7,9 +8,9 @@ class MyLinkedList {
         }
     }
 
-    private Node head;
-    private Node tail;
-    private int size;
+    Node head;
+    Node tail;
+    int size;
 
     public MyLinkedList() {
         head = null;
@@ -18,8 +19,8 @@ class MyLinkedList {
     }
 
     public int get(int index) {
-        if (index < 0 || index >= size) return -1;
         Node temp = head;
+        if (index < 0 || index >= size) return -1;
         for (int i = 0; i < index; i++) {
             temp = temp.next;
         }
@@ -27,42 +28,45 @@ class MyLinkedList {
     }
 
     public void addAtHead(int val) {
-        Node temp = new Node(val);
+        Node t = new Node(val);
         if (head == null) {
-            head = tail = temp;
+            tail = t;
+            head = t;
         } else {
-            temp.next = head;
-            head = temp;
+            t.next = head;
+            head = t;
         }
         size++;
     }
 
     public void addAtTail(int val) {
-        Node temp = new Node(val);
+        Node t = new Node(val);
         if (head == null) {
-            head = tail = temp;
+            head = t;
+            tail = t;
         } else {
-            tail.next = temp;
-            tail = temp;
+            tail.next = t;
+            tail = t;
         }
         size++;
     }
 
     public void addAtIndex(int index, int val) {
+        Node t = new Node(val);
         if (index < 0 || index > size) return;
-        if (index == 0) {
-            addAtHead(val);
-        } else if (index == size) {
+
+        if (index == size) {
             addAtTail(val);
+        } else if (index == 0) {
+            addAtHead(val);
         } else {
             Node temp = head;
-            for (int i = 0; i < index - 1; i++) {
+            for (int i = 0; i < index - 1; i++) { // ✅ fixed this condition
                 temp = temp.next;
             }
-            Node newNode = new Node(val);
-            newNode.next = temp.next;
-            temp.next = newNode;
-            size++;
+            t.next = temp.next;
+            temp.next = t;
+            size++; // ✅ increment size here
         }
     }
 
@@ -70,7 +74,7 @@ class MyLinkedList {
         if (index < 0 || index >= size) return;
         if (index == 0) {
             head = head.next;
-            if (head == null) tail = null;  // if list becomes empty
+            if (head == null) tail = null;
         } else {
             Node temp = head;
             for (int i = 0; i < index - 1; i++) {
