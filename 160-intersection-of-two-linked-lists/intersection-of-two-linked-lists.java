@@ -19,29 +19,29 @@ public class Solution {
             tempA=tempA.next;
         }
         int lengthB=0;
-         while(tempB!=null){
+        while(tempB!=null){
             lengthB++;
             tempB=tempB.next;
         }
         tempA=headA;
         tempB=headB;
-        if(lengthA>lengthB){
-           int steps=lengthA-lengthB;
-           for(int i=1;i<=steps;i++){
-            tempA=tempA.next;
-           }
+        if(lengthA<lengthB){
+            int steps=lengthB-lengthA;
+            for(int i=0;i<steps;i++){
+                tempB=tempB.next;
+            }
         }else{
-          int steps=lengthB-lengthA;
-           for(int i=1;i<=steps;i++){
-            tempB=tempB.next;
-           }
-
+            int steps=lengthA-lengthB;
+            for(int i=0;i<steps;i++){
+                tempA=tempA.next;
+            }
         }
         while(tempA!=tempB){
             tempA=tempA.next;
             tempB=tempB.next;
         }
         return tempA;
+       
 }
 }
     
