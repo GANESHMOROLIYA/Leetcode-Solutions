@@ -18,8 +18,8 @@ class Solution {
         Node head2=new Node(0);
         Node temp2=head2;
         Node temp1=head;
+        
         //creating deep copy
-
         while(temp1!=null){
             Node t=new Node(temp1.val);
             temp2.next=t;
