@@ -18,6 +18,7 @@ class Solution {
     if(fast==null){
         head=head.next;
         return head;
+        
     }
     while(fast.next!=null){
         slow=slow.next;
