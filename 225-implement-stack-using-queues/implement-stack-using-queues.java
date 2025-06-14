@@ -1,35 +1,38 @@
 class MyStack {
-    Queue<Integer> q=new LinkedList<>();
+    Queue<Integer> q = new LinkedList<>();
 
     public MyStack() {
-        
+
     }
-    
+
     public void push(int x) {
         q.add(x);
-        
+
     }
-    
+
     public int pop() {
-        for(int i=0;i<q.size()-1;i++){
+        for (int i = 0; i < q.size() - 1; i++) {
             q.add(q.remove());
         }
-        int x= q.remove();
+        int x = q.remove();
         return x;
     }
-    
+
     public int top() {
-   for(int i=0;i<q.size()-1;i++){
+        for (int i = 0; i < q.size() - 1; i++) {
             q.add(q.remove());
         }
         int x=q.peek();
         q.add(q.remove());
         return x;
+
     }
-    
+
     public boolean empty() {
-        if(q.size()==0) return true;
-        else return false;
+        if (q.size() == 0)
+            return true;
+        else
+            return false;
     }
 }
 
