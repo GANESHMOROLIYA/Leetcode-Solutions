@@ -1,64 +1,51 @@
-
 class Solution {
- public boolean isSafe(char[][] board, int row, int col, int number) {
- //column
- for(int i=0; i<board.length; i++) {
- if(board[i][col] == (char)(number+'0')) {
- return false;
- }
- }
- //row
- for(int j=0; j<board.length; j++) {
- if(board[row][j] == (char)(number+'0')) {
- return false;
- }
- }
- //grid
- int sr = 3 * (row/3);
- int sc = 3 * (col/3);
- for(int i=sr; i<sr+3; i++) {
- for(int j=sc; j<sc+3; j++) {
- if(board[i][j] == (char)(number+'0')) {
- return false;
- }
- }
- }
- return true;
- }
- public boolean helper(char[][] board, int row, int col) {
- if(row == board.length) {
- return true;
- }
- int nrow = 0;
- int ncol = 0;
- if(col == board.length-1) {
- nrow = row + 1;
- ncol = 0;
- } else {
- nrow = row;
- ncol = col + 1;
- }
- if(board[row][col] != '.') {
- if(helper(board, nrow, ncol)) {
- return true;
- }
- } else {
- //fill the place
- for(int i=1; i<=9; i++) {
- if(isSafe(board, row, col, i)) {
- board[row][col] = (char)(i+'0');
- if(helper(board, nrow, ncol))
- return true;
- else
- board[row][col] = '.';
- }
- }
- }
- return false;
- }
- public void solveSudoku(char[][] board) {
- helper(board, 0, 0);
- }}
- 
- 
-    
+      public boolean isValid(char[][] board,int row,int col,char num){
+        int n=board.length;
+        for(int i=0;i<n;i++){
+            if(board[row][i]==num) return false;
+        }
+         for(int i=0;i<n;i++){
+            if(board[i][col]==num) return false;
+        }
+        int sRow=row/3*3;
+        int sCol=col/3*3;
+        for(int i=sRow;i<sRow+3;i++){
+            for(int j=sCol;j<sCol+3;j++){
+                if(board[i][j]==num) return false;
+            }
+        }
+        return true;
+    }
+    public void solve(char[][] board,int row,int col,char[][] grid){
+       if(row==9){
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                grid[i][j]=board[i][j];
+            }
+        }
+        return;
+       }else if(board[row][col]!='.'){
+                if(col!=8) solve(board,row,col+1,grid);
+                else  solve(board,row+1,0,grid);
+        }
+        else{
+          for(char ch='1';ch<='9';ch++){
+            if(isValid(board,row,col,ch)){
+                board[row][col]=ch;
+                if(col!=8) solve(board,row,col+1,grid);
+                else  solve(board,row+1,0,grid);
+                board[row][col]='.';//Backtracking
+            }
+        }
+       }
+    }
+    public void solveSudoku(char[][] board) {
+        char[][] grid=new char[9][9];
+        solve(board,0,0,grid);
+        for(int i=0;i<9;i++){
+            for(int j=0;j<9;j++){
+                board[i][j]=grid[i][j];
+            }
+        }
+    }
+}
